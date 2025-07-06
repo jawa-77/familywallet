@@ -10,9 +10,14 @@ from rest_framework import status
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
 # Create your views here.
+class VerifyView(APIView):        
+    permission_classes = [IsAuthenticated]
 
-
-User = get_user_model()
+    def get(self, request):
+        if request.user.is_verified:
+            return Response({"message": "your account  is verified. Welcome!"})
+        else:
+            return Response({"message": "please complete verification process"}, status=status.HTTP_403_FORBIDDEN)    
 
 class SignUpView(generics.CreateAPIView):
     queryset = User.objects.all()
