@@ -18,7 +18,7 @@ class VerifyView(APIView):
             return Response({"message": "your account  is verified. Welcome!"})
         else:
             return Response({"message": "please complete verification process"}, status=status.HTTP_403_FORBIDDEN)    
-
+User = get_user_model()
 class SignUpView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = SingUpSerializer
